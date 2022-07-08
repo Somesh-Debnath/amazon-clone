@@ -2,12 +2,21 @@ import React from "react";
 import "./Header.css";
 import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
-function Header() {  
+import {useStateValue} from "../../contextAPI/StateProvider"
+import { auth } from "../../firebase";
+import { Link,useNavigate } from "react-router-dom";
+function Header() { 
+  const [{basket,user},dispatch]=useStateValue() 
+const navigate=useNavigate()
+  const handleAuthentication=()=>{
+    if(user){
+    auth.signOut()
+  }
+}
   return (
     <div className="header">
       
-        <img
+        <img 
           className="header__logo"
           src="http://pngimg.com/uploads/amazon/amazon_PNG11.png"
           alt=""
@@ -20,12 +29,12 @@ function Header() {
       </div>
 
       <div className="header__nav">
-        
-          <div className="header__option">
-            <span className="header__optionLineOne">Hello Guest</span>
-            <span className="header__optionLineTwo">Sign In</span>
+        <Link to={!user && '/login'}>
+          <div onClick={handleAuthentication} className="header__option">
+            <span className="header__optionLineOne">Hello {!user ? 'Guest' : user.email}</span>
+            <span className="header__optionLineTwo">{user ? 'Sign Out' : 'Sign In'}</span>
           </div>
-        
+        </Link>
 
         
           <div className="header__option">
@@ -44,7 +53,7 @@ function Header() {
           <div className="header__optionBasket">
             <ShoppingCartIcon/>
             <span className="header__optionLineTwo header__basketCount">
-              0
+              {basket?.length}
             </span>
           </div>
         

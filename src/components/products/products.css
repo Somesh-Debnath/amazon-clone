@@ -25,14 +25,20 @@
   }
   
   .product > button {
-    background: #FBD83D;
-    padding: 0.5rem 1.3rem;
+    background: #ffd102;
+    padding: 0.5rem 1rem;
     border: 1px solid;
-    font-size: medium;
+    font-weight: bold;
     margin-top: 10px;
     border-color: #a88734 #9c7e31 #846a29;
     color: #111;
     border-radius: 9px;
+    transition: ease-in-out 0.2s;
+  }
+  .product>button:hover {
+    transform: translate(0, -2px);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+    cursor: pointer;
   }
   
   .product__price {
